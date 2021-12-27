@@ -5,7 +5,7 @@
 	"build": {
 		"dockerfile": "Dockerfile",
 		"context": "..",
-		"args": { 
+		"args": {
 			// Update 'VARIANT' to pick a Python version: 3, 3.6, 3.7, 3.8, 3.9
 			"VARIANT": "3.9",
 			// Options
@@ -13,9 +13,8 @@
 			"NODE_VERSION": "lts/*"
 		}
 	},
-
 	// Set *default* container specific settings.json values on container create.
-	"settings": { 
+	"settings": {
 		"python.pythonPath": "/usr/local/bin/python",
 		"python.languageServer": "Pylance",
 		"python.linting.enabled": true,
@@ -30,8 +29,11 @@
 		"python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
 		"python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
 		"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
-		"python.formatting.blackArgs": ["--line-length", "120"],
-		"python.formatting.provider": "black", 
+		"python.formatting.blackArgs": [
+			"--line-length",
+			"120"
+		],
+		"python.formatting.provider": "black",
 		"files.exclude": {
 			"**/*.pyc": {
 				"when": "$(basename).py"
@@ -42,28 +44,23 @@
 			".vscode": true
 		}
 	},
-	
-
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"ms-python.python",
 		"ms-python.vscode-pylance"
 	],
-
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
-
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "pip3 install --user -r .devcontainer/requirements.txt",
-
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	//"remoteUser": "vscode"
-
 	// "name" property scheint nicht benutzt zu werden
 	// siehe: https://github.com/microsoft/vscode-remote-release/issues/2590
 	"runArgs": [
 		"--name",
-		"tmp_container",
-		"--env-file",
-		"${localWorkspaceFolder}/.devcontainer/.env"
-	],}
+		"statement_extractor",
+		// "--env-file",
+		// "${localWorkspaceFolder}/.devcontainer/.env"
+	],
+}
