@@ -33,3 +33,8 @@ if not os.path.exists(SPACY_DATA_PATH):
     os.makedirs(SPACY_DATA_PATH)  # create foleder
     nlp = spacy.load(SPACY_MODEL_NAME)  # load model
     nlp.to_disk(SPACY_DATA_PATH)  # save model to created dir
+
+
+# Model
+MODEL_NAME = "deepset/gbert-base"
+MODEL_WEIGHTS_PATH = os.path.join("data", "models", "CM_gbert-base_full_g", "tf_model.h5")
