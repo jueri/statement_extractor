@@ -6,7 +6,7 @@ Example:
     $
     $ segments = split_segments(text)
     $
-    % sentences = split_sentences(text)
+    $ sentences = split_sentences(text)
 
 
 """

@@ -1,5 +1,15 @@
-import os
+# -*- coding: utf-8 -*-
+"""Module to detect claims in sentences.
 
+Example:
+    $ from segmenter import segment_passages, segment_sentences
+    $
+    $ detector = detect_claims.claim_detector(MODEL_NAME, MODEL_WEIGHTS_PATH)
+    $ 
+    $ text = "This is not a claim sentence."
+    $ detector.is_claim(text)
+
+"""
 import numpy as np
 import tensorflow as tf
 from transformers import DistilBertTokenizer, TFDistilBertForSequenceClassification
