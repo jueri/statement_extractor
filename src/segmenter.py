@@ -8,7 +8,6 @@ Example:
     $
     $ sentences = split_sentences(text)
 
-
 """
 
 from typing import Optional, Any
@@ -141,12 +140,12 @@ def make_segments(
         return segmented_text
 
 
-def split_sentences(text: str, min_sentence_lenghth: int = 3) -> list[str]:
+def split_sentences(text: str, min_sentence_lenghth: int = 2) -> list[str]:
     """Split a text into sentences.
 
     Args:
         text (str): Text to split.
-        min_sentence_lenghth (int, optional): Minimum number of words in a sentence. Defaults to 3.
+        min_sentence_lenghth (int, optional): Minimum number of words in a sentence. Defaults to 2.
 
     Returns:
         list[str]: List of sentences from text.
@@ -159,11 +158,12 @@ def split_sentences(text: str, min_sentence_lenghth: int = 3) -> list[str]:
     return sentenced_text_clean
 
 
-def split_segments(text: str) -> list[dict[str, str]]:
+def split_segments(text: str, segment_len: int = 3) -> list[dict[str, str]]:
     """Split text into coherent segments using the textslpit algorythm.
 
     Args:
         text (str): Text to split.
+        segment_len (int): Max segment lenghth in sentences. Defaults to 3.
 
     Returns:
         list[dict[str, str]]: List of dicts with sentences and segment ids.
@@ -177,13 +177,16 @@ def split_segments(text: str) -> list[dict[str, str]]:
     sentences = split_sentences(cleaned)
     sentence_vectors = get_sentence_embeddings(sentences, word_vectors)
     try:
-        segments: list[list[str]] = make_segments(sentence_vectors, sentences, segment_len=5)
+        segments: list[list[str]] = make_segments(
+            sentence_vectors, sentences, segment_len=segment_len
+        )
     except ValueError:
         segments = [sentences]  # not enough sentences in segment use all sentences as one passage
 
     dataset = []
+    segment_id = 0
+
     for segment in segments:
-        segment_id = 0
         for sentence in segment:
             dataset.append(
                 {
@@ -191,5 +194,5 @@ def split_segments(text: str) -> list[dict[str, str]]:
                     "sentence": sentence,
                 }
             )
-            segment_id += 1
+        segment_id += 1
     return dataset  # type: ignore
