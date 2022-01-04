@@ -7,7 +7,7 @@ DEBUG: bool = False
 
 
 SAMPLE_PDF_PATH = os.path.join(
-    "data", "pdfs", "Transkript_Quantencomputer_SMC-Press-Briefing_2021-04-12.pdf"
+    "data", "pdf", "Transkript_Quantencomputer_SMC-Press-Briefing_2021-04-12.pdf"
 )
 
 
