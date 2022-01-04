@@ -51,7 +51,7 @@ def highlight_text(
                 highlight.update()
 
         if not text_instances:
-            print("Error, sentence not found")
+            print('Error, sentence not found: "' + text + '"')
 
     incremental = True if input_pdf_path == output_pdf_path else False
     pdf.save(output_pdf_path, encryption=False, incremental=incremental, deflate=True, clean=True)
