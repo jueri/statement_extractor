@@ -1,5 +1,4 @@
 # Statement Extractor
-# The SMC claim dataset
 ### Info 💡
 Statement Extractor is a python library to automatically detect statements in texts. The main modules can be found in the [src](https://github.com/jueri/statement_extractor/src) directory. Three notebooks in the root directory interface these modules and guide through the dataset creation process.
 
