@@ -57,14 +57,14 @@ class claim_detector:
         )
         return input_text_tokenized
 
-    def classify(self, input_text: str) -> bool:
-        """Classify the input text
+    def classify(self, input_text: str) -> np.ndarray:
+        """Classify the input text as claim or non claim and return the result scores.
 
         Args:
             input_text (str): Sentence to be classified.
 
         Returns:
-            bool: True if sentence contains a claim.
+            np.ndarray: Class probabilitys of the sentence.
         """
         input_text_tokenized = self.tokenize_text(input_text)  # tokenize Text
         prediction = self.model(input_text_tokenized)
@@ -72,7 +72,15 @@ class claim_detector:
         prediction_probs = tf.nn.softmax(prediction_logits, axis=1).numpy()
         return prediction_probs
 
-    def is_claim(self, input_text):
+    def is_claim(self, input_text: str) -> bool:
+        """Classify the input text as claim or non claim and return a boolean value.
+
+        Args:
+            input_text (str): Sentence to be classified.
+
+        Returns:
+            bool: True if the sentence is a claim, else False.
+        """
         input_text_tokenized = self.tokenize_text(input_text)
         prediction = self.model(input_text_tokenized)
         prediction_logits = prediction[0]
