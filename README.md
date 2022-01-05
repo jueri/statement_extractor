@@ -25,3 +25,7 @@ The `data/models` directory contains trained models.
 |Name|Usecase|train_data|test_accuracy|
 |---|---|---|---|
 |`CM_gbert-base_full_g`|pre_label the SMC_claim_dataset|Google translated datasets: `IBM Debater® - Claims and Evidence`  and `IBM Debater® - Claim Sentences Search`|0.7274|
+
+
+### Bugs:
+After installation, please run `pip install -U PyMuPDF`
