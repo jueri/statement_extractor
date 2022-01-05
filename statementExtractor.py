@@ -17,8 +17,14 @@ from config import MODEL_NAME, MODEL_WEIGHTS_PATH
 @click.command()
 @click.option("--pdf_in", help="Path to the pdf file to parse.")
 @click.option("--pdf_out", help="Output path.")
+@click.option("--output", help="claims for claims only and both for claims and sentences")
 @click.option("--segment_len", default=4, help="Number of sentences per segments.")
-def annotate(pdf_in, pdf_out, segment_len):
+@click.option(
+    "--claim_th",
+    default=0.0,
+    help="Minimal claim confidence betweene 0.1 and 1.0, by default the max confidence class is choosen.",
+)
+def annotate(pdf_in, pdf_out, output, segment_len, claim_th):
 
     click.echo(str(datetime.datetime.now()) + ": Parse pdf file.")
     text = pdf_parser.pdf_to_text(pdf_in)  # load all text from pdf
@@ -62,39 +68,75 @@ def annotate(pdf_in, pdf_out, segment_len):
     # detect claim sentences
     click.echo(str(datetime.datetime.now()) + ": Detect claim sentences.")
     detector = detect_claims.claim_detector(MODEL_NAME, MODEL_WEIGHTS_PATH)
-    doc_table["claim"] = doc_table.apply(lambda x: detector.is_claim(x["sentence"]), axis=1)
+    if claim_th:
+        doc_table["claim"] = doc_table.apply(
+            lambda x: detector.is_claim(x["sentence"], min_confidence=claim_th), axis=1
+        )
+    else:
+        doc_table["claim"] = doc_table.apply(lambda x: detector.is_claim(x["sentence"]), axis=1)
 
-    relevant_claims = doc_table[
-        (doc_table["claim"] == True) & (doc_table["speaker"] != "Moderator")
-    ]
+    relevant_claims = doc_table[(doc_table["claim"] == True) & (doc_table["speaker"] != "Moderator")]
     claim_sentences = relevant_claims["sentence"].to_list()
 
     # highlight
-    click.echo(str(datetime.datetime.now()) + ": Highlight results.")
-    c = "yellow"
-    highlight_pdf.highlight_text([], pdf_in, pdf_out)
+    if output == "claim":
+        click.echo(str(datetime.datetime.now()) + ": Highlight claims.")
+        highlight_pdf.highlight_text(claim_sentences, pdf_in, pdf_out, color=["green", "yellow"])
 
-    passage_id_old = None
-    segment_id_old = None
+    elif output == "both":
+        click.echo(str(datetime.datetime.now()) + ": Highlight claims and statements.")
 
-    for row in relevant_claims.iterrows():
-        passage_id = row[1]["passage_id"]
-        segment_id = row[1]["segment_id"]
+        c = "yellow"
+        highlight_pdf.highlight_text([], pdf_in, pdf_out)
 
-        if passage_id_old == passage_id and segment_id_old == segment_id:
-            continue
-        else:
-            sentences = doc_table[
-                (doc_table["passage_id"] == passage_id) & (doc_table["segment_id"] == segment_id)
-            ]["sentence"].to_list()
-            highlight_pdf.highlight_text(sentences, pdf_out, pdf_out, color=c)
-            passage_id_old = passage_id
-            segment_id_old = segment_id
+        passage_id_old = None
+        segment_id_old = None
 
-            if c == "yellow":
-                c = "red"
+        for row in relevant_claims.iterrows():
+            passage_id = row[1]["passage_id"]
+            segment_id = row[1]["segment_id"]
+
+            if passage_id_old == passage_id and segment_id_old == segment_id:
+                continue
             else:
-                c = "yellow"
+                sentences = doc_table[
+                    (doc_table["passage_id"] == passage_id) & (doc_table["segment_id"] == segment_id)
+                ]["sentence"].to_list()
+                highlight_pdf.highlight_text(sentences, pdf_out, pdf_out, color=c)
+                passage_id_old = passage_id
+                segment_id_old = segment_id
+
+                if c == "yellow":
+                    c = "red"
+                else:
+                    c = "yellow"
+
+    else:
+        click.echo(str(datetime.datetime.now()) + ": Highlight statements.")
+        c = "yellow"
+        highlight_pdf.highlight_text([], pdf_in, pdf_out)
+
+        passage_id_old = None
+        segment_id_old = None
+
+        for row in relevant_claims.iterrows():
+            passage_id = row[1]["passage_id"]
+            segment_id = row[1]["segment_id"]
+
+            if passage_id_old == passage_id and segment_id_old == segment_id:
+                continue
+            else:
+                sentences = doc_table[
+                    (doc_table["passage_id"] == passage_id) & (doc_table["segment_id"] == segment_id)
+                ]["sentence"].to_list()
+                highlight_pdf.highlight_text(sentences, pdf_out, pdf_out, color=c)
+                passage_id_old = passage_id
+                segment_id_old = segment_id
+
+                if c == "yellow":
+                    c = "red"
+                else:
+                    c = "yellow"
 
     # highlight_pdf.highlight_text(claim_sentences, pdf_out, pdf_out, color="green")
 

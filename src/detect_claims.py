@@ -72,11 +72,12 @@ class claim_detector:
         prediction_probs = tf.nn.softmax(prediction_logits, axis=1).numpy()
         return prediction_probs
 
-    def is_claim(self, input_text: str) -> bool:
+    def is_claim(self, input_text: str, min_confidence: float = 0.0) -> bool:
         """Classify the input text as claim or non claim and return a boolean value.
 
         Args:
             input_text (str): Sentence to be classified.
+            min_confidence (float): Minimal confidence to count as claim if 0.0 the highest available confidence is used independently of any threashold. Defaults to 0.0.
 
         Returns:
             bool: True if the sentence is a claim, else False.
@@ -84,8 +85,17 @@ class claim_detector:
         input_text_tokenized = self.tokenize_text(input_text)
         prediction = self.model(input_text_tokenized)
         prediction_logits = prediction[0]
-        result = np.argmax(prediction_logits, axis=1)[0]
+        if min_confidence == 0.0:
+            result = np.argmax(prediction_logits, axis=1)[0]
+        else:
+            prediction_probs = tf.nn.softmax(prediction_logits, axis=1).numpy()
+            if prediction_probs[0][1] >= min_confidence:
+                result = True
+            else:
+                result = False
+
         if result == 1:
             return True
         else:
             return False
+
