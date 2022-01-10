@@ -37,4 +37,6 @@ if not os.path.exists(SPACY_DATA_PATH):
 
 # Model
 MODEL_NAME = "deepset/gbert-base"
-MODEL_WEIGHTS_PATH = os.path.join("data", "models", "CM_gbert-base_full_g", "tf_model.h5")
+MODEL_WEIGHTS_PATH = os.path.join("data", "models", "dataset_CDC_81", "tf_model.h5")
+# MODEL_NAME = "deepset/gbert-base"
+# MODEL_WEIGHTS_PATH = os.path.join("data", "models", "CM_gbert-base_full_g", "tf_model.h5")
