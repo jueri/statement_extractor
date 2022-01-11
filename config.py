@@ -40,3 +40,8 @@ MODEL_NAME = "deepset/gbert-base"
 MODEL_WEIGHTS_PATH = os.path.join("data", "models", "dataset_CDC_81", "tf_model.h5")
 # MODEL_NAME = "deepset/gbert-base"
 # MODEL_WEIGHTS_PATH = os.path.join("data", "models", "CM_gbert-base_full_g", "tf_model.h5")
+
+
+# Wikify
+DANDELION_TOKEN = os.getenv("DANDELION_TOKEN")
+TAGME_TOKEN = os.getenv("TAGME_TOKEN")
