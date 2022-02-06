@@ -142,6 +142,7 @@ cython_debug/
 # My Files 
 # data/
 .devcontainer/.env
+.devcontainer
 data
 src/utils/pdf_parser.py
 .vscode
