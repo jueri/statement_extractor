@@ -143,6 +143,14 @@ cython_debug/
 # data/
 .devcontainer/.env
 .devcontainer
-data
-src/utils/pdf_parser.py
+data/Final_evaluation
+data/models/CM_gbert-base_full_g
+data/models/dataset_81
+data/models/dataset_82
+data/models/SMC_Full_87
+data/nltk_data
+data/spacy_data
+
+
 .vscode
+

@@ -157,6 +157,7 @@ PyMuPDF = "==1.19.3"
 PyYAML = "==6.0"
 Send2Trash = "==1.8.0"
 Werkzeug = "==2.0.2"
+mypy = "*"
 
 [dev-packages]
 
