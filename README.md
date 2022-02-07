@@ -15,7 +15,7 @@ To set up, the system and download the necessary data, please run the [config.py
 
 The wikification module relies on two wikification services, [Dandelion](https://dandelion.eu/) and [TagMe](https://sobigdata.d4science.org/web/tagme). API keys for these services can be created for free. The wikify module expects the environment variables `DANDELION_TOKEN` and `TAGME_TOKEN`. 
 
-### Usage:
+### ⏯ Usage:
 Besides from the different modules, a basic CLI interface is available to extract statements from press briefings. The following options are available.
 ```
 Options:
@@ -37,5 +37,5 @@ Options:
 - [example.ipynb](https://github.com/jueri/statement_extractor/tree/master/example.ipynb) holds an example usecase and guides through the modules.
 - [pre_predict_claims.ipynb](https://github.com/jueri/statement_extractor/tree/master/pre_predict_claims.ipynb) can be used to predict sentence based claim probabilitys for data annotation.
 
-### Bugs:
-After installation, please run `pip install -U PyMuPDF`
+### 🐛 Bugs:
+It may be necessary to install `pyMuPDF` for the highlighter module manually. To do so, please execute `pip install -U PyMuPDF`.
