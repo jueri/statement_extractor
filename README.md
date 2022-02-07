@@ -16,7 +16,13 @@ To set up, the system and download the necessary data, please run the [config.py
 The wikification module relies on two wikification services, [Dandelion](https://dandelion.eu/) and [TagMe](https://sobigdata.d4science.org/web/tagme). API keys for these services can be created for free. The wikify module expects the environment variables `DANDELION_TOKEN` and `TAGME_TOKEN`. 
 
 ### ⏯ Usage:
-Besides from the different modules, a basic CLI interface is available to extract statements from press briefings. The following options are available.
+Besides from the different modules, a basic CLI interface is available to extract statements from press briefings. 
+For example this command: 
+  ``` bash
+  python statementExtractor.py -i Press-Briefing.pdf --pdf_out test.pdf --main_concept wikify_intro --intro intro.txt --main_concept_th 1.0 --claim_th 0.8
+  ```
+will annotate the press briefing *Press-Briefing.pdf*, with a minimum confidence score of *0.8* and an introduction based wikification similarity of at least *1.0*.
+The following options are available.
 ```
 Options:
   -i, --pdf_in TEXT        Path to the input pdf file.
