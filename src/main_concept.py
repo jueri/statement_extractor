@@ -8,7 +8,7 @@ Example:
 
 """
 import time
-from typing import Any, Optional
+from typing import Any, Optional, List
 
 import requests
 from scipy import spatial
@@ -17,7 +17,7 @@ from src import segmenter
 from config import SPACY_DATA_PATH, TAGME_TOKEN
 
 
-def sentence_title_similarity(text: str, title: str, text_sentences: list[str]) -> list[float]:
+def sentence_title_similarity(text: str, title: str, text_sentences: List[str]) -> List[float]:
     """Calculate the similarities between the sentences and the title as the cosine similarity between the sentence and topic embedding.
 
     Args:
@@ -120,6 +120,7 @@ def wikified_article_score(sentence: str, document_spot_ids: set) -> float:
     Returns:
         float: Score of the sentence.
     """
+    assert TAGME_TOKEN
     spots = wikify(text=sentence, service="tagme", token=TAGME_TOKEN)
     if spots:
         return sum(

@@ -10,7 +10,7 @@ Example:
 
 """
 
-from typing import Optional, Any
+from typing import List, Optional, Any, Dict
 
 import numpy as np  # type: ignore
 import pandas as pd  # type:ignore
@@ -66,7 +66,7 @@ def get_embeddings(text: str, model_path: str) -> pd.DataFrame:
     return word_vectors
 
 
-def get_sentence_embeddings(sentenced_text: list[str], word_vectors: pd.DataFrame) -> np.ndarray:
+def get_sentence_embeddings(sentenced_text: List[str], word_vectors: pd.DataFrame) -> np.ndarray:
     """Claculate an embaddings for full sentences of a list of sentences. The embeddings are calculated
      ad dot product of the single token embedding.
 
@@ -84,11 +84,11 @@ def get_sentence_embeddings(sentenced_text: list[str], word_vectors: pd.DataFram
 
 def make_segments(
     sentence_vectors: np.ndarray,
-    sentenced_text: list[str],
+    sentenced_text: List[str],
     segment_len: int,
     seg_limit: int = 250,
     greedy: bool = False,
-) -> list[list[str]]:
+) -> List[List[str]]:
     """Segment a text in segments using sentence embeddings.
 
     Args:
@@ -140,7 +140,7 @@ def make_segments(
         return segmented_text
 
 
-def split_sentences(text: str, min_sentence_lenghth: int = 2) -> list[str]:
+def split_sentences(text: str, min_sentence_lenghth: int = 2) -> List[str]:
     """Split a text into sentences.
 
     Args:
@@ -158,7 +158,7 @@ def split_sentences(text: str, min_sentence_lenghth: int = 2) -> list[str]:
     return sentenced_text_clean
 
 
-def split_segments(text: str, segment_len: int = 3) -> list[dict[str, str]]:
+def split_segments(text: str, segment_len: int = 3) -> List[Dict[str, str]]:
     """Split text into coherent segments using the textslpit algorythm.
 
     Args:
@@ -177,7 +177,7 @@ def split_segments(text: str, segment_len: int = 3) -> list[dict[str, str]]:
     sentences = split_sentences(cleaned)
     sentence_vectors = get_sentence_embeddings(sentences, word_vectors)
     try:
-        segments: list[list[str]] = make_segments(
+        segments: List[List[str]] = make_segments(
             sentence_vectors, sentences, segment_len=segment_len
         )
     except ValueError:

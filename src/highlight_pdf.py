@@ -11,10 +11,11 @@ Example:
 """
 
 import fitz
+from typing import List
 
 
 def highlight_text(
-    texts: list[str], input_pdf_path: str, output_pdf_path: str, color: str = "yellow"
+    texts: List[str], input_pdf_path: str, output_pdf_path: str, color: str = "yellow"
 ):
     """Highlight text in a pdf file. The texts are searched and higlighted. If the search returns no results an error is printed.
 
