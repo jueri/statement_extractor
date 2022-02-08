@@ -1,6 +1,6 @@
 # Statement Extractor
 ### 💡 Info:
-Statement Extractor is a python library to detect statements in texts automatically.The main modules can be found in the [src](https://github.com/jueri/statement_extractor/src) directory. The [example notebook](https://github.com/jueri/statement_extractor/blob/master/example.ipynb) in the root directory interface the modules and guide through the extraction process.
+Statement Extractor is a python library to automatically detect statements in texts. The main modules can be found in the [src](https://github.com/jueri/statement_extractor/src) directory. The [example notebook](https://github.com/jueri/statement_extractor/blob/master/example.ipynb) in the root directory interface the modules and guide through the extraction process.
 
 This repository is part of my bachelor theses with the title **Automated statement extraction from press briefings**.
 
