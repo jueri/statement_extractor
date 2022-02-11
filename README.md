@@ -1,4 +1,6 @@
 # Statement Extractor
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6047551.svg)](https://doi.org/10.5281/zenodo.6047551)
+
 ### 💡 Info:
 Statement Extractor is a python library to automatically detect statements in texts. The main modules can be found in the [src](https://github.com/jueri/statement_extractor/src) directory. The [example notebook](https://github.com/jueri/statement_extractor/blob/master/example.ipynb) in the root directory interface the modules and guide through the extraction process.
 
